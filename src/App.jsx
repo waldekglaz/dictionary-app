@@ -69,11 +69,9 @@ function App() {
               <hr />
               <p className="pt-8 text-slate-500 underline">Source</p>
               <p>
-                {searchResult.sourceUrls.map((el) => (
-                  <a className="underline" href={el} key={el} target="_blank" title={el}>
-                    {el}
-                  </a>
-                ))}
+                <a className="underline" href={searchResult.sourceUrls[0]} target="_blank" title={searchResult.sourceUrls[0]}>
+                  {searchResult.sourceUrls[0]}
+                </a>
               </p>
             </div>
           </>
