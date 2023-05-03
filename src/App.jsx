@@ -1,0 +1,86 @@
+import { useState, useEffect } from "react";
+import Header from "./components/Header";
+import ResultHeader from "./components/ResultHeader";
+import Card from "./components/Card";
+import ErrorMsg from "./components/ErrorMsg";
+import { ThreeDots } from "react-loader-spinner";
+import "./App.css";
+
+function App() {
+  const [userInput, setUserInput] = useState("");
+  const [searchResult, setSearchResult] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const fetchData = async (input) => {
+    setError(false);
+    setSearchResult(null);
+    try {
+      setIsLoading(true);
+      const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${input}`);
+      const [data] = await response.json();
+      setSearchResult(data);
+    } catch (err) {
+      console.error(err);
+      setError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    fetchData(userInput);
+    setUserInput("");
+  };
+
+  const onInputChange = (e) => {
+    setUserInput(e.target.value);
+  };
+
+  return (
+    <div className="max-w-3xl mr-auto ml-auto px-6 pb-20 container md:px-10 pb-28">
+      <Header />
+
+      <form className="w-full " onSubmit={onFormSubmit}>
+        <input className="bg-slate-100 w-full text-xl font-bold py-5 px-6 rounded-3xl" type="text" value={userInput} onChange={onInputChange} placeholder="Search for any word…" />
+      </form>
+
+      <main>
+        {isLoading && (
+          <div className="mr-auto ml-auto flex justify-center">
+            <ThreeDots height="40" width="40" color="gray" />
+          </div>
+        )}
+        {error && <ErrorMsg />}
+        {searchResult && (
+          <>
+            <ResultHeader word={searchResult.word} phonetic={searchResult.phonetic} phonetics={searchResult.phonetics} />
+
+            <div className="meanings">
+              <ul>
+                {searchResult.meanings.map((element, i) => {
+                  return (
+                    <>
+                      <Card partOfSpeech={element.partOfSpeech} definitions={element.definitions} synonyms={element.synonyms} source={searchResult.sourceUrls} />
+                    </>
+                  );
+                })}
+              </ul>
+              <hr />
+              <p className="pt-8 text-slate-500 underline">Source</p>
+              <p>
+                {searchResult.sourceUrls.map((el) => (
+                  <a className="underline" href={el} key={el} target="_blank" title={el}>
+                    {el}
+                  </a>
+                ))}
+              </p>
+            </div>
+          </>
+        )}
+      </main>
+    </div>
+  );
+}
+
+export default App;
