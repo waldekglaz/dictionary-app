@@ -16,7 +16,7 @@ const Card = (props) => {
         })}
       </ul>
       {props.synonyms.length > 0 && (
-        <ul className="flex gap-8 mb-8">
+        <ul className="flex flex-wrap	 gap-8 mb-8">
           <div className="text-slate-500">Synonyms</div>
           {props.synonyms.map((item) => {
             return <li className="text-violet-600 font-bold">{item}</li>;
