@@ -6,6 +6,7 @@ import ErrorMsg from "./components/ErrorMsg";
 import { ThreeDots } from "react-loader-spinner";
 import SearchIcon from "./assets/images/icon-search.svg";
 import NewWindowIcon from "./assets/images/icon-new-window.svg";
+import fetchData from "./api";
 import "./App.css";
 
 function App() {
@@ -17,25 +18,10 @@ function App() {
   const [activeFont, setActiveFont] = useState("font-mono");
   const [isFontWindowOpen, setIsFontWindowOpen] = useState(false);
 
-  const fetchData = async (input) => {
-    setError(false);
-    setSearchResult(null);
-    try {
-      setIsLoading(true);
-      const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${input}`);
-      const [data] = await response.json();
-      setSearchResult(data);
-    } catch (err) {
-      console.error(err);
-      setError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
   const onFormSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    fetchData(userInput);
+    fetchData(userInput, setError, setSearchResult, setIsLoading);
     setUserInput("");
   };
 
