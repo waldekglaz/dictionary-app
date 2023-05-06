@@ -4,6 +4,7 @@ import ResultHeader from "./components/ResultHeader";
 import Card from "./components/Card";
 import ErrorMsg from "./components/ErrorMsg";
 import { ThreeDots } from "react-loader-spinner";
+import SearchIcon from "./assets/images/icon-search.svg";
 import "./App.css";
 
 function App() {
@@ -55,8 +56,9 @@ function App() {
       <div className={`max-w-3xl mr-auto ml-auto px-6 pb-20 pt-6 container md:px-10 md:pb-28 `}>
         <Header onClick={themeChangeHandler} theme={darkToggle} font={activeFont} onFontChange={fontChangeHandler} fontWindow={isFontWindowOpen} fontWindowToggle={toggleFontWindow} />
 
-        <form className="w-full " onSubmit={onFormSubmit}>
-          <input onClick={() => setIsFontWindowOpen(false)} className="bg-slate-100 w-full text-xl font-bold py-5 px-6 rounded-3xl dark:text-white dark:bg-slate-800" type="text" value={userInput} onChange={onInputChange} placeholder="Search for any word…" />
+        <form className="w-full relative" onSubmit={onFormSubmit}>
+          <input onClick={() => setIsFontWindowOpen(false)} className="bg-slate-100 w-full tex md:text-xl font-bold py-5 px-6 rounded-3xl dark:text-white dark:bg-slate-800" type="text" value={userInput} onChange={onInputChange} placeholder="Search for any word…" />
+          <img className="absolute inset-y-1/3 right-8" src={SearchIcon} aria-hidden="true" />
         </form>
 
         <main onClick={() => setIsFontWindowOpen(false)}>
