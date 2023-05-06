@@ -46,7 +46,7 @@ function App() {
         <Header onClick={themeChangeHandler} theme={darkToggle} />
 
         <form className="w-full " onSubmit={onFormSubmit}>
-          <input className="bg-slate-100 w-full text-xl font-bold py-5 px-6 rounded-3xl dark:text-red-50" type="text" value={userInput} onChange={onInputChange} placeholder="Search for any word…" />
+          <input className="bg-slate-100 w-full text-xl font-bold py-5 px-6 rounded-3xl dark:text-white dark:bg-slate-800" type="text" value={userInput} onChange={onInputChange} placeholder="Search for any word…" />
         </form>
 
         <main>
