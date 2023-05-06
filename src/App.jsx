@@ -5,6 +5,7 @@ import Card from "./components/Card";
 import ErrorMsg from "./components/ErrorMsg";
 import { ThreeDots } from "react-loader-spinner";
 import SearchIcon from "./assets/images/icon-search.svg";
+import NewWindowIcon from "./assets/images/icon-new-window.svg";
 import "./App.css";
 
 function App() {
@@ -80,10 +81,13 @@ function App() {
                 </ul>
                 <hr />
                 <p className="pt-8 text-slate-500 underline ">Source</p>
-                <p>
-                  <a className="underline" href={searchResult.sourceUrls[0]} target="_blank" title={searchResult.sourceUrls[0]}>
-                    {searchResult.sourceUrls[0]}
-                  </a>
+                <p className="flex items-center ">
+                  <a className="underline flex items-center" href={searchResult.sourceUrls[0]} target="_blank" title={searchResult.sourceUrls[0]}>
+                    {searchResult.sourceUrls[0]}{" "}
+                    <span className="ml-2">
+                      <img src={NewWindowIcon} aria-hidden="true" />
+                    </span>
+                  </a>{" "}
                 </p>
               </div>
             </>
