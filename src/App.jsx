@@ -12,6 +12,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [darkToggle, setDarkToggle] = useState(false);
+  const [activeFont, setActiveFont] = useState("font-mono");
+  const [isFontWindowOpen, setIsFontWindowOpen] = useState(false);
+
   const fetchData = async (input) => {
     setError(false);
     setSearchResult(null);
@@ -40,16 +43,23 @@ function App() {
   const themeChangeHandler = () => {
     setDarkToggle(!darkToggle);
   };
+  const fontChangeHandler = (e) => {
+    setActiveFont(e.target.dataset.font);
+    setIsFontWindowOpen(false);
+  };
+  const toggleFontWindow = () => {
+    setIsFontWindowOpen(!isFontWindowOpen);
+  };
   return (
-    <div className={`w-full min-h-screen ${darkToggle ? "dark bg-black text-white " : ""} `}>
-      <div className={`max-w-3xl mr-auto ml-auto px-6 pb-20 container md:px-10 md:pb-28 `}>
-        <Header onClick={themeChangeHandler} theme={darkToggle} />
+    <div className={`w-full min-h-screen  ${darkToggle ? "dark bg-black text-white " : ""} ${activeFont}`}>
+      <div className={`max-w-3xl mr-auto ml-auto px-6 pb-20 pt-6 container md:px-10 md:pb-28 `}>
+        <Header onClick={themeChangeHandler} theme={darkToggle} font={activeFont} onFontChange={fontChangeHandler} fontWindow={isFontWindowOpen} fontWindowToggle={toggleFontWindow} />
 
         <form className="w-full " onSubmit={onFormSubmit}>
-          <input className="bg-slate-100 w-full text-xl font-bold py-5 px-6 rounded-3xl dark:text-white dark:bg-slate-800" type="text" value={userInput} onChange={onInputChange} placeholder="Search for any word…" />
+          <input onClick={() => setIsFontWindowOpen(false)} className="bg-slate-100 w-full text-xl font-bold py-5 px-6 rounded-3xl dark:text-white dark:bg-slate-800" type="text" value={userInput} onChange={onInputChange} placeholder="Search for any word…" />
         </form>
 
-        <main>
+        <main onClick={() => setIsFontWindowOpen(false)}>
           {isLoading && (
             <div className="mr-auto ml-auto flex justify-center">
               <ThreeDots height="40" width="40" color="gray" />
