@@ -3,8 +3,12 @@ import React from "react";
 const Card = (props) => {
   return (
     <div className="pb-8 dark:text-white">
-      <p className="italic font-bold text-2xl mb-10">{props.partOfSpeech}</p>
-      <p className="mb-7 text-slate-500">Meaning</p>
+      <div className="flex flex-row items-center mb-10 justify-between">
+        <p className="italic font-bold text-2xl  relative mr-4">{props.partOfSpeech}</p>
+        <div className="h-px bg-slate-300 w-full"></div>
+      </div>
+
+      <p className="mb-7 text-slate-500 ">Meaning</p>
       <ul className=" pl-10 list-disc">
         {props.definitions.map((item) => {
           return (
