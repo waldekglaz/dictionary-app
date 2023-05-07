@@ -7,7 +7,7 @@ const fetchData = async (input, setError, setResult, setLoading) => {
         const [data] = await response.json();
         setResult(data);
     } catch (err) {
-        console.error(err);
+        // console.error(err);
         setError(true);
     } finally {
         setLoading(false);

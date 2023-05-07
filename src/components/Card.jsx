@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 as uuid4 } from "uuid";
 
 const Card = (props) => {
   return (
@@ -12,7 +13,7 @@ const Card = (props) => {
       <ul className=" pl-10 list-disc">
         {props.definitions.map((item) => {
           return (
-            <li className="mb-3 text-violet-600 text-sm md:text-lg">
+            <li key={uuid4()} className="mb-3 text-violet-600 text-sm md:text-lg">
               <span className="text-black dark:text-white">{item.definition}</span>
               {item.example && <p className=" mt-2 text-slate-500">&ldquo;{item.example}&rdquo;</p>}
             </li>
@@ -23,7 +24,11 @@ const Card = (props) => {
         <ul className="flex flex-wrap	 gap-8 mb-8">
           <div className="text-slate-500">Synonyms</div>
           {props.synonyms.map((item) => {
-            return <li className="text-violet-600 font-bold">{item}</li>;
+            return (
+              <li key={uuid4()} className="text-violet-600 font-bold">
+                {item}
+              </li>
+            );
           })}
         </ul>
       )}

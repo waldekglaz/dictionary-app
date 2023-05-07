@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PlayIcon from "./../assets/images/icon-play.svg";
+import { v4 as uuid4 } from "uuid";
 
 const ResultHeader = ({ word, phonetic, phonetics }) => {
   const [isPlaying, setIsPlaying] = useState(false);

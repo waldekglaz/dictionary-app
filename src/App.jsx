@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { v4 as uuid4 } from "uuid";
 import Header from "./components/Header";
 import ResultHeader from "./components/ResultHeader";
 import Card from "./components/Card";
@@ -62,7 +63,7 @@ function App() {
               <div className="meanings">
                 <ul>
                   {searchResult.meanings.map((element, i) => {
-                    return <Card key={i} partOfSpeech={element.partOfSpeech} definitions={element.definitions} synonyms={element.synonyms} source={searchResult.sourceUrls} />;
+                    return <Card key={uuid4()} partOfSpeech={element.partOfSpeech} definitions={element.definitions} synonyms={element.synonyms} source={searchResult.sourceUrls} />;
                   })}
                 </ul>
                 <hr />

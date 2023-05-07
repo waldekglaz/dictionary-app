@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 as uuid4 } from "uuid";
 const fonts = ["-sans", "-serif", "-mono"];
 
 const FontPicker = (props) => {
@@ -20,9 +21,8 @@ const FontPicker = (props) => {
       {props.fontWindow && (
         <div className={`absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white  shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-slate-800 `} role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
           <div className="py-1" role="none">
-            {/* <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" --> */}
             {notActiveFonts.map((item, index) => (
-              <a onClick={props.onFontClick} href="#" className="text-black block px-4 py-2 text-sm dark:text-white" role="menuitem" tabIndex="-1" data-font={`font${item}`} id={`menu-item-${index}`}>
+              <a key={uuid4()} onClick={props.onFontClick} href="#" className="text-black block px-4 py-2 text-sm dark:text-white" role="menuitem" tabIndex="-1" data-font={`font${item}`} id={`menu-item-${index}`}>
                 {item === "-sans" && "Sans Serif"}
                 {item === "-serif" && "Serif"}
                 {item === "-mono" && "Mono"}
