@@ -67,11 +67,11 @@ function App() {
                   })}
                 </ul>
                 <hr />
-                <p className="pt-8 text-slate-500 underline ">Source</p>
+                <p className="pt-8 text-slate-500 underline text-xs">Source</p>
                 <p className="flex items-center ">
-                  <a className="underline flex items-center" href={searchResult.sourceUrls[0]} target="_blank" title={searchResult.sourceUrls[0]}>
+                  <a className="underline  text-xs" href={searchResult.sourceUrls[0]} target="_blank" title={searchResult.sourceUrls[0]}>
                     {searchResult.sourceUrls[0]}{" "}
-                    <span className="ml-2">
+                    <span className="ml-2 inline-block">
                       <img src={NewWindowIcon} aria-hidden="true" />
                     </span>
                   </a>{" "}
