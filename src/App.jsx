@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { v4 as uuid4 } from "uuid";
 import Header from "./components/Header";
+import Form from "./components/Form";
 import ResultHeader from "./components/ResultHeader";
 import Card from "./components/Card";
 import ErrorMsg from "./components/ErrorMsg";
 import { ThreeDots } from "react-loader-spinner";
-import SearchIcon from "./assets/images/icon-search.svg";
 import NewWindowIcon from "./assets/images/icon-new-window.svg";
 import fetchData from "./api";
 import "./App.css";
@@ -16,7 +16,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [darkToggle, setDarkToggle] = useState(false);
-  const [activeFont, setActiveFont] = useState("font-mono");
+  const [activeFont, setActiveFont] = useState("font-sans");
   const [isFontWindowOpen, setIsFontWindowOpen] = useState(false);
   const [isInputEmpty, setIsInputEmpty] = useState(false);
 
@@ -28,7 +28,6 @@ function App() {
       fetchData(userInput.trim(), setError, setSearchResult, setIsLoading);
       setUserInput("");
     } else {
-      console.log("empty");
       setIsInputEmpty(true);
     }
   };
@@ -51,12 +50,7 @@ function App() {
       <div className={`max-w-3xl mr-auto ml-auto px-6 pb-20 pt-6 container md:px-10 md:pb-28 `}>
         <Header onClick={themeChangeHandler} theme={darkToggle} font={activeFont} onFontChange={fontChangeHandler} fontWindow={isFontWindowOpen} fontWindowToggle={toggleFontWindow} />
 
-        <form className="w-full relative" onSubmit={onFormSubmit}>
-          <input onClick={() => setIsFontWindowOpen(false)} className="bg-slate-100 w-full tex md:text-xl font-bold py-5 px-6 rounded-3xl dark:text-white dark:bg-slate-800" type="text" value={userInput} onChange={onInputChange} placeholder="Search for any word…" />
-          <img className="absolute inset-y-1/3 right-8" src={SearchIcon} aria-hidden="true" />
-          {isInputEmpty && <div className="text-red-500 text-xs">Whoops, can’t be empty…</div>}
-        </form>
-
+        <Form onFormSubmit={onFormSubmit} fontWindowOpen={setIsFontWindowOpen} input={userInput} onInputChange={onInputChange} isInputEmpty={isInputEmpty} />
         <main onClick={() => setIsFontWindowOpen(false)}>
           {isLoading && (
             <div className="mr-auto ml-auto flex justify-center">
