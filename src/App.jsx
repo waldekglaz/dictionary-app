@@ -18,12 +18,19 @@ function App() {
   const [darkToggle, setDarkToggle] = useState(false);
   const [activeFont, setActiveFont] = useState("font-mono");
   const [isFontWindowOpen, setIsFontWindowOpen] = useState(false);
+  const [isInputEmpty, setIsInputEmpty] = useState(false);
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    fetchData(userInput, setError, setSearchResult, setIsLoading);
-    setUserInput("");
+    if (userInput.trim().length > 0) {
+      setIsInputEmpty(false);
+      setIsLoading(true);
+      fetchData(userInput.trim(), setError, setSearchResult, setIsLoading);
+      setUserInput("");
+    } else {
+      console.log("empty");
+      setIsInputEmpty(true);
+    }
   };
 
   const onInputChange = (e) => {
@@ -47,6 +54,7 @@ function App() {
         <form className="w-full relative" onSubmit={onFormSubmit}>
           <input onClick={() => setIsFontWindowOpen(false)} className="bg-slate-100 w-full tex md:text-xl font-bold py-5 px-6 rounded-3xl dark:text-white dark:bg-slate-800" type="text" value={userInput} onChange={onInputChange} placeholder="Search for any word…" />
           <img className="absolute inset-y-1/3 right-8" src={SearchIcon} aria-hidden="true" />
+          {isInputEmpty && <div className="text-red-500 text-xs">Whoops, can’t be empty…</div>}
         </form>
 
         <main onClick={() => setIsFontWindowOpen(false)}>
