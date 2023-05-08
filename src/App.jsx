@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, createContext, useContext } from "react";
 import { v4 as uuid4 } from "uuid";
 import Header from "./components/Header";
 import Form from "./components/Form";
@@ -9,6 +9,9 @@ import { ThreeDots } from "react-loader-spinner";
 import NewWindowIcon from "./assets/images/icon-new-window.svg";
 import fetchData from "./api";
 import "./App.css";
+
+export const themeContext = createContext(null);
+export const formContext = createContext(null);
 
 function App() {
   const [userInput, setUserInput] = useState("");
@@ -48,9 +51,13 @@ function App() {
   return (
     <div className={`w-full min-h-screen  ${darkToggle ? "dark bg-black text-white " : ""} ${activeFont}`}>
       <div className={`max-w-3xl mr-auto ml-auto px-6 pb-20 pt-6 container md:px-10 md:pb-28 `}>
-        <Header onClick={themeChangeHandler} theme={darkToggle} font={activeFont} onFontChange={fontChangeHandler} fontWindow={isFontWindowOpen} fontWindowToggle={toggleFontWindow} />
+        <themeContext.Provider value={{ activeFont, themeChangeHandler, fontChangeHandler, isFontWindowOpen, toggleFontWindow, darkToggle }}>
+          <Header />
+        </themeContext.Provider>
+        <formContext.Provider value={{ onFormSubmit, setIsFontWindowOpen, userInput, onInputChange, isInputEmpty }}>
+          <Form />
+        </formContext.Provider>
 
-        <Form onFormSubmit={onFormSubmit} fontWindowOpen={setIsFontWindowOpen} input={userInput} onInputChange={onInputChange} isInputEmpty={isInputEmpty} />
         <main onClick={() => setIsFontWindowOpen(false)}>
           {isLoading && (
             <div className="mr-auto ml-auto flex justify-center">
